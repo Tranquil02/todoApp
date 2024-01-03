@@ -28,6 +28,9 @@ app.use(cors({
 // app.use(isAuthorised())
 app.use("/api/v1/user",UserRouter);
 app.use("/api/v1/task",TaskRouter);
+app.get("/",(req,res)=>{
+    res.send("home Working")
+})
 
 app.use(ErrorMiddleware)
 
