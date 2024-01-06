@@ -4,7 +4,6 @@ import { task } from "../models/task.js";
 export const newTask = async (req, res, next) => {
     try {
         const userid = req.User._id;
-        // console.log(userid)
         const { title, description } = req.body;
         await task.create({
             title, description, userid
@@ -57,8 +56,7 @@ export const deleteTask = async (req, res, next) => {
         const myTask = await task.findById(req.params.id);
 
         if (!myTask) return next(new Errorhandler("Invalid ID", 404))
-
-        await task.deleteOne(myTask);
+        await task.deleteOne({_id:req.params.id});
         res.json({
             success: true,
             message: "Task Deleted"

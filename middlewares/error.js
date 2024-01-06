@@ -8,7 +8,7 @@ class Errorhandler extends Error{
 export const ErrorMiddleware=(err,req,res,next)=>{
     err.message=err.message || "Internal Server Error";
     err.statusCode=err.statusCode || 505;
-    // console.log(err.message)
+    
     res.status(err.statusCode).json({
         success:false,
         message:err.message

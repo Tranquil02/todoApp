@@ -6,7 +6,7 @@ import bcrypt from "bcryptjs";
 export const myDetails = (req, res) => {
     res.json({
         success: true,
-        details: req.User,
+        details:req.User,
     })
 }
 
@@ -15,8 +15,7 @@ export const loginUser = async (req, res, next) => {
         const { email, password } = req.body;
         let isUser = await user.findOne({ email });
         if (!isUser) return next(new Errorhandler("Invalid User or Password", 404))
-        const ismatch = await bcrypt.compare(password, isUser.password);
-        // console.log(ismatch)
+        const ismatch = bcrypt.compare(password, isUser.password);
         if (!ismatch) return next(new Errorhandler("Wrong Password", 404))
         setcookie(res, isUser, 200, "login Successfully")
     } catch (error) {
@@ -27,13 +26,10 @@ export const registerUser = async (req, res, next) => {
     try {
         const { name, email, password } = req.body;
         const hashed = await bcrypt.hash(password, 10);
-        // console.log(hashed);
-
-        // console.log(await bcrypt)
 
         let isuser = await user.findOne({ email });
         if (isuser) return next(new Errorhandler("User ALready Exist", 404))
-        // const hashed=bcrypt
+        
         isuser = await user.create({
             name,
             email,
@@ -50,8 +46,8 @@ export const logout = (req, res, next) => {
             .status(200)
             .cookie("token", "", {
                 expires: new Date(Date.now()),
-                sameSite: process.env.NODE_ENV === "development" ? "lax" : "none",
-                secure: process.env.NODE_ENV === "development" ? false : true
+                sameSite: process.env.NODE_ENV === "developmen" ? "lax" : "none",
+                secure: process.env.NODE_ENV === "developmen" ? false : true
             })
             .json({
                 success: true,

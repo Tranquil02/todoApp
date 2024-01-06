@@ -9,9 +9,7 @@ export const isAuthorised = async (req, res, next) => {
             message: "Login First",
         })
         const decodeToken = jwt.verify(token, process.env.JWT_SECRET);
-        // console.log("decoded :",decodeToken)
         req.User = await user.findById(decodeToken.id);
-        // console.log(req.User)
         next();
     } catch (error) {
         next(error)

@@ -6,8 +6,8 @@ export const setcookie = (res, isuser, statusCode, message) => {
         // console.log(token)
         res.status(statusCode).cookie("token", token, {
             httpOnly: true,
-            // samesite:process.env.NODE_ENV==="development"?"lax":"none",
-            // secure:process.env.NODE_ENV==="development"?false:true,
+            samesite:process.env.NODE_ENV==="developmen"?"lax":"none",
+            secure:process.env.NODE_ENV==="developmen"?false:true,
 
         }).json({
             success: true,
